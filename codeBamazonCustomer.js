@@ -12,11 +12,15 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
+
+    // call first step
     displayProducts();
 });
 
 
 function displayProducts() {
+
+    // connect to db
     var query = connection.query("SELECT item_id, product_name, price FROM products", function(err, res) {
         if (err) throw err;
 
@@ -27,6 +31,7 @@ function displayProducts() {
         }
         console.log("---------------------------------\n");
 
+        // call next step
         customerInquiry();
     });
 };
@@ -54,25 +59,28 @@ function customerInquiry() {
             }
         }
     ]).then(function(answer) {
+        // add customer choices to variables
         var chosenId = answer.id;
         var chosenQuantity = answer.quantity;
 
+        // call next step passing customer choices as parameters
         purchase(chosenId, chosenQuantity);
     })
 };
 
 
-
 function purchase(id, quantity) {
     connection.query("SELECT * FROM products WHERE ?", { item_id: id }, function(err, res) {
-
         if (err) throw err;
 
+        // if there's enough stock
         if (quantity <= res[0].stock_quantity) {
 
+            // set total cost to customer and new quantity available to variables
             var totalCost = quantity * res[0].price;
             var newQuantity = res[0].stock_quantity - quantity;
 
+            // update db
             connection.query("UPDATE products SET ? WHERE ?",
                     [ 
                         { 
@@ -83,12 +91,22 @@ function purchase(id, quantity) {
                         }
                     ]
                 , function(err, res) {
-                    console.log("Nice! We have what you need in stock. Your total cost for " + quantity + " of Item # " + id + " comes to: $" + totalCost);
+
+                    // tell customer their purchase was successful
+                    console.log("\nNice! We have what you need in stock!");
+                    console.log("Your total cost for " + quantity + " of Item # " + id + " comes to: $" + totalCost);
+                    console.log("\n---------------------------------\n");
+                    console.log("Please continue shopping. Here are the items we carry: ")
                 }
             )
+
+        // if there's not enough stock
         } else {
-            console.log("Sorry, not enough stock. Please make another selection.");
+            console.log("\nSorry, not enough stock. Please make another selection. Here are the items we carry: ");
+            console.log("\n---------------------------------\n");
         }
+
+        // recursive!
         displayProducts();
     });
 };
