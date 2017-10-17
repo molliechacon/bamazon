@@ -70,6 +70,7 @@ function customerInquiry() {
 
 
 function purchase(id, quantity) {
+    
     connection.query("SELECT * FROM products WHERE ?", { item_id: id }, function(err, res) {
         if (err) throw err;
 
