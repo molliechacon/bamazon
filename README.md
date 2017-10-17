@@ -10,6 +10,9 @@ On load, all products will appear and the user will be prompted to enter the ite
 
 ![alt tag](/screenshots/onload.PNG)
 
+Once the customer has entered his/her choice, they are shown a confirmation of the order and the total price. After the transaction is completed, the customer is again shown the list of products and asked to continue shopping. From here, they can choose a new item to purchase.
+
+![alt tag](/screenshots/full.PNG)
 
 
 
