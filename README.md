@@ -8,7 +8,7 @@ Bamazon is an app where customers can view and purchase items. Item inventory in
 
 On load, all products will appear and the user will be prompted to enter the item number and quantity of the the product they wish to purchase:
 
-![ScreenShot](/screenshots/onload.png)
+![alt tag](/screenshots/onload.PNG)
 
 
 
