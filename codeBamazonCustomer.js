@@ -94,7 +94,7 @@ function purchase(id, quantity) {
 
                     // tell customer their purchase was successful
                     console.log("\nNice! We have what you need in stock!");
-                    console.log("Your total cost for " + quantity + " of Item # " + id + " comes to: $" + totalCost);
+                    console.log("Your total cost for " + quantity + " of Item # " + id + " comes to: $" + parseFloat(totalCost).toFixed(2));
                     console.log("\n---------------------------------\n");
                     console.log("Please continue shopping. Here are the items we carry: ")
                 }
